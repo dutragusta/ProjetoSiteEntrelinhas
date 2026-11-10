@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entrelinhas - Clube do Livro Digital. Organize suas leituras, descubra novos livros e compartilhe recomendações.">
+    <title>Entrelinhas | Clube do Livro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/logo.svg">
+</head>
+<body>
+    <header class="header" role="banner">
+        <nav class="nav container" aria-label="Navegação principal">
+            <a href="#home" class="logo" aria-label="Entrelinhas - Página inicial">
+                <svg class="logo-icon" viewBox="0 0 32 32" aria-hidden="true">
+                    <path fill="currentColor" d="M4 4h24v24H4z"/>
+                </svg>
+                <span class="logo-text">Entrelinhas</span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+            <ul id="nav-menu" class="nav-menu" role="menubar">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem" data-screen="home">Início</a></li>
+                <li role="none"><a href="#explorar" class="nav-link" role="menuitem" data-screen="explorar">Explorar Livros</a></li>
+                <li role="none"><a href="#minha-estante" class="nav-link" role="menuitem" data-screen="minha-estante">Minha Estante</a></li>
+                <li role="none"><a href="#cadastrar" class="nav-link" role="menuitem" data-screen="cadastrar">Cadastrar Livro</a></li>
+                <li role="none"><a href="#perfil" class="nav-link" role="menuitem" data-screen="perfil">Perfil</a></li>
+                <li role="none"><a href="#login" class="nav-link btn btn-primary" role="menuitem" data-screen="login">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="app" class="main" role="main">
+        <!-- Tela 1: Home -->
+        <section id="screen-home" class="screen active" aria-labelledby="home-title">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero" aria-labelledby="hero-title">
+                    <div class="hero-content">
+                        <h1 id="hero-title" class="hero-title">Encontre livros que combinam com você</h1>
+                        <p class="hero-subtitle">Organize sua estante, acompanhe seu progresso e descubra novas histórias na comunidade Entrelinhas.</p>
+                        <div class="hero-actions">
+                            <a href="#explorar" class="btn btn-primary btn-lg">Explorar Livros</a>
+                            <a href="#cadastrar" class="btn btn-secondary btn-lg">Cadastrar Livro</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual" aria-hidden="true">
+                        <div class="book-stack">
+                            <div class="book-spine" style="--spine-color: #7C4A5A;"></div>
+                            <div class="book-spine" style="--spine-color: #8B4513;"></div>
+                            <div class="book-spine" style="--spine-color: #D8B4B8;"></div>
+                            <div class="book-spine" style="--spine-color: #333333;"></div>
+                            <div class="book-spine" style="--spine-color: #7C4A5A;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção Histórias Incríveis -->
+                <section class="section featured-books" aria-labelledby="featured-title">
+                    <header class="section-header">
+                        <h2 id="featured-title" class="section-title">Histórias Incríveis</h2>
+                        <p class="section-subtitle">Livros mais recomendados pela comunidade</p>
+                    </header>
+                    <div class="books-grid" id="featured-grid" role="list" aria-label="Livros em destaque"></div>
+                </section>
+
+                <!-- Seção Próximas Leituras -->
+                <section class="section next-reads" aria-labelledby="next-reads-title">
+                    <header class="section-header">
+                        <h2 id="next-reads-title" class="section-title">Sugestões para suas próximas leituras</h2>
+                        <p class="section-subtitle">Baseado no seu histórico e preferências</p>
+                    </header>
+                    <div class="books-carousel" id="next-reads-carousel" role="list" aria-label="Sugestões de leitura">
+                        <button class="carousel-btn carousel-prev" aria-label="Livros anteriores" disabled>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                        </button>
+                        <div class="carousel-track" id="carousel-track"></div>
+                        <button class="carousel-btn carousel-next" aria-label="Próximos livros">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Tela 2: Explorar Livros -->
+        <section id="screen-explorar" class="screen" aria-labelledby="explorar-title" hidden>
+            <div class="container">
+                <header class="screen-header">
+                    <h1 id="explorar-title" class="screen-title">Explorar Livros</h1>
+                    <p class="screen-subtitle">Descubra novos títulos e autores</p>
+                </header>
+
+                <div class="explorer-layout">
+                    <!-- Sidebar Filtros -->
+                    <aside class="filters-sidebar" aria-labelledby="filters-title">
+                        <h2 id="filters-title" class="filters-title">Filtros</h2>
+
+                        <div class="filter-group">
+                            <label for="search-input" class="filter-label">Buscar por título, autor ou palavra-chave</label>
+                            <div class="search-wrapper">
+                                <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                                <input type="search" id="search-input" class="search-input" placeholder="Digite para buscar..." autocomplete="off" aria-describedby="search-hint">
+                            </div>
+                            <span id="search-hint" class="filter-hint">Pressione Enter para buscar</span>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="category-filter" class="filter-label">Categoria</label>
+                            <select id="category-filter" class="filter-select" aria-label="Filtrar por categoria">
+                                <option value="">Todas as categorias</option>
+                                <option value="ficcao">Ficção</option>
+                                <option value="drama">Drama</option>
+                                <option value="distopia">Distopia</option>
+                                <option value="romance">Romance</option>
+                                <option value="fantasia">Fantasia</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="status-filter" class="filter-label">Status de Leitura</label>
+                            <select id="status-filter" class="filter-select" aria-label="Filtrar por status de leitura">
+                                <option value="">Todos</option>
+                                <option value="completo">Completo</option>
+                                <option value="andamento">Em andamento</option>
+                                <option value="nao-iniciado">Não iniciado</option>
+                            </select>
+                        </div>
+
+                        <button id="clear-filters" class="btn btn-secondary btn-sm">Limpar filtros</button>
+                    </aside>
+
+                    <!-- Grid de Livros -->
+                    <section class="books-section" aria-labelledby="books-grid-title">
+                        <div class="books-header">
+                            <h2 id="books-grid-title" class="books-count">Todos os livros (<span id="books-count">0</span>)</h2>
+                            <div class="view-toggle" role="group" aria-label="Alternar visualização">
+                                <button class="view-btn active" data-view="grid" aria-label="Visualização em grade" aria-pressed="true">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                                </button>
+                                <button class="view-btn" data-view="list" aria-label="Visualização em lista" aria-pressed="false">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V4H4v5zm5-5h12v4H9V4zm0 5h12v4H9V9zm0 5h12v4H9v-4z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="books-grid" id="books-grid" role="list" aria-label="Lista de livros"></div>
+                        <div id="empty-state" class="empty-state" hidden>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                            <h3>Nenhum livro encontrado</h3>
+                            <p>Tente ajustar os filtros ou <a href="#cadastrar">cadastrar um novo livro</a></p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela 3: Minha Estante -->
+        <section id="screen-minha-estante" class="screen" aria-labelledby="estante-title" hidden>
+            <div class="container">
+                <header class="screen-header">
+                    <h1 id="estante-title" class="screen-title">Minha Estante</h1>
+                    <p class="screen-subtitle">Acompanhe suas leituras e progresso</p>
+                </header>
+
+                <!-- Continue lendo -->
+                <section class="section continue-reading" aria-labelledby="continue-title">
+                    <header class="section-header">
+                        <h2 id="continue-title" class="section-title">Continue de onde parou</h2>
+                    </header>
+                    <div class="books-grid" id="continue-grid" role="list" aria-label="Livros em andamento"></div>
+                    <div id="continue-empty" class="empty-state" hidden>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 11.5c.29.53.6 1.04 1 1.5C3.35 15.82 5.66 18 9 18c2.3 0 4.45-.9 5.98-2.25l1.52 1.52C15.27 18.3 13.87 19 12 19c-4.97 0-9-4.03-9-9s4.03-9 9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm0-11c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <h3>Nenhuma leitura em andamento</h3>
+                        <p><a href="#explorar">Explore livros</a> e comece a ler hoje</p>
+                    </div>
+                </section>
+
+                <!-- Minhas avaliações -->
+                <section class="section my-ratings" aria-labelledby="ratings-title">
+                    <header class="section-header">
+                        <h2 id="ratings-title" class="section-title">Minhas Avaliações</h2>
+                    </header>
+                    <div class="books-grid" id="ratings-grid" role="list" aria-label="Livros avaliados"></div>
+                    <div id="ratings-empty" class="empty-state" hidden>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                        <h3>Nenhuma avaliação ainda</h3>
+                        <p>Avalie livros após concluir a leitura</p>
+                    </div>
+                </section>
+
+                <!-- Controle por status -->
+                <section class="section status-control" aria-labelledby="status-title">
+                    <header class="section-header">
+                        <h2 id="status-title" class="section-title">Por Status de Leitura</h2>
+                    </header>
+                    <div class="status-tabs" role="tablist" aria-label="Filtrar por status">
+                        <button role="tab" class="status-tab active" aria-selected="true" aria-controls="panel-completo" id="tab-completo" data-status="completo">Completos <span class="status-count" id="count-completo">0</span></button>
+                        <button role="tab" class="status-tab" aria-selected="false" aria-controls="panel-andamento" id="tab-andamento" data-status="andamento">Em andamento <span class="status-count" id="count-andamento">0</span></button>
+                        <button role="tab" class="status-tab" aria-selected="false" aria-controls="panel-nao-iniciado" id="tab-nao-iniciado" data-status="nao-iniciado">Não iniciados <span class="status-count" id="count-nao-iniciado">0</span></button>
+                    </div>
+                    <div role="tabpanel" id="panel-completo" class="status-panel active" aria-labelledby="tab-completo">
+                        <div class="books-grid" id="grid-completo" role="list" aria-label="Livros completos"></div>
+                    </div>
+                    <div role="tabpanel" id="panel-andamento" class="status-panel" aria-labelledby="tab-andamento" hidden>
+                        <div class="books-grid" id="grid-andamento" role="list" aria-label="Livros em andamento"></div>
+                    </div>
+                    <div role="tabpanel" id="panel-nao-iniciado" class="status-panel" aria-labelledby="tab-nao-iniciado" hidden>
+                        <div class="books-grid" id="grid-nao-iniciado" role="list" aria-label="Livros não iniciados"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Tela 4: Cadastrar Livro -->
+        <section id="screen-cadastrar" class="screen" aria-labelledby="cadastrar-title" hidden>
+            <div class="container">
+                <header class="screen-header">
+                    <h1 id="cadastrar-title" class="screen-title">Cadastrar Livro</h1>
+                    <p class="screen-subtitle">Adicione um novo título ao acervo da comunidade</p>
+                </header>
+
+                <form id="book-form" class="book-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-title" class="form-label">Título da Obra <span class="required" aria-hidden="true">*</span></label>
+                            <input type="text" id="book-title" name="title" class="form-input" required maxlength="200" autocomplete="off" aria-describedby="title-error">
+                            <span id="title-error" class="form-error" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-author" class="form-label">Autor(a) <span class="required" aria-hidden="true">*</span></label>
+                            <input type="text" id="book-author" name="author" class="form-input" required maxlength="150" autocomplete="off" aria-describedby="author-error">
+                            <span id="author-error" class="form-error" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-category" class="form-label">Gênero/Categoria <span class="required" aria-hidden="true">*</span></label>
+                            <select id="book-category" name="category" class="form-select" required aria-describedby="category-error">
+                                <option value="">Selecione uma categoria</option>
+                                <option value="ficcao">Ficção</option>
+                                <option value="drama">Drama</option>
+                                <option value="distopia">Distopia</option>
+                                <option value="romance">Romance</option>
+                                <option value="fantasia">Fantasia</option>
+                            </select>
+                            <span id="category-error" class="form-error" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-year" class="form-label">Ano de Publicação <span class="required" aria-hidden="true">*</span></label>
+                            <input type="number" id="book-year" name="year" class="form-input" required min="1000" max="2026" placeholder="Ex: 2023" aria-describedby="year-error year-hint">
+                            <span id="year-hint" class="form-hint">Entre 1000 e 2026</span>
+                            <span id="year-error" class="form-error" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book-synopsis" class="form-label">Sinopse <span class="required" aria-hidden="true">*</span></label>
+                        <textarea id="book-synopsis" name="synopsis" class="form-textarea" required maxlength="2000" rows="6" placeholder="Conte um pouco sobre a história... (máx. 2000 caracteres)" aria-describedby="synopsis-error synopsis-count"></textarea>
+                        <div class="form-footer">
+                            <span id="synopsis-count" class="char-count">0/2000</span>
+                            <span id="synopsis-error" class="form-error" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="book-cover" class="form-label">URL da Capa (opcional)</label>
+                        <input type="url" id="book-cover" name="cover" class="form-input" placeholder="https://exemplo.com/capa.jpg" aria-describedby="cover-hint cover-error">
+                        <span id="cover-hint" class="form-hint">Link direto para a imagem da capa</span>
+                        <span id="cover-error" class="form-error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg">Cadastrar Livro</button>
+                        <button type="reset" class="btn btn-secondary btn-lg">Limpar</button>
+                    </div>
+                </form>
+
+                <div id="form-success" class="form-success" hidden role="alert">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <h3>Livro cadastrado com sucesso!</h3>
+                    <p>O livro foi adicionado ao acervo da comunidade.</p>
+                    <button class="btn btn-primary" id="form-new-book">Cadastrar outro livro</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela 5: Login -->
+        <section id="screen-login" class="screen auth-screen" aria-labelledby="login-title" hidden>
+            <div class="container">
+                <div class="auth-card">
+                    <header class="auth-header">
+                        <div class="auth-logo" aria-hidden="true">
+                            <svg viewBox="0 0 32 32"><path fill="currentColor" d="M4 4h24v24H4z"/></svg>
+                        </div>
+                        <h1 id="login-title" class="auth-title">Entrar no Entrelinhas</h1>
+                        <p class="auth-subtitle">Boas histórias começam aqui.</p>
+                    </header>
+
+                    <form id="login-form" class="auth-form" novalidate>
+                        <div class="form-group">
+                            <label for="login-email" class="form-label">E-mail <span class="required" aria-hidden="true">*</span></label>
+                            <input type="email" id="login-email" name="email" class="form-input" required autocomplete="email" aria-describedby="login-email-error">
+                            <span id="login-email-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password" class="form-label">Senha <span class="required" aria-hidden="true">*</span></label>
+                            <div class="password-wrapper">
+                                <input type="password" id="login-password" name="password" class="form-input" required autocomplete="current-password" aria-describedby="login-password-error">
+                                <button type="button" class="password-toggle" aria-label="Mostrar/ocultar senha" aria-pressed="false">
+                                    <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 11.5c.29.53.6 1.04 1 1.5C3.35 15.82 5.66 18 9 18c2.3 0 4.45-.9 5.98-2.25l1.52 1.52C15.27 18.3 13.87 19 12 19c-4.97 0-9-4.03-9-9s4.03-9 9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm0-11c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                                </button>
+                            </div>
+                            <span id="login-password-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group form-checkbox">
+                            <input type="checkbox" id="login-remember" name="remember" class="form-checkbox-input">
+                            <label for="login-remember" class="form-checkbox-label">Lembrar-me</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
+                    </form>
+
+                    <p class="auth-footer">Não tem conta? <a href="#cadastro" data-screen="cadastro">Criar uma conta</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela 6: Cadastro -->
+        <section id="screen-cadastro" class="screen auth-screen" aria-labelledby="cadastro-title" hidden>
+            <div class="container">
+                <div class="auth-card">
+                    <header class="auth-header">
+                        <div class="auth-logo" aria-hidden="true">
+                            <svg viewBox="0 0 32 32"><path fill="currentColor" d="M4 4h24v24H4z"/></svg>
+                        </div>
+                        <h1 id="cadastro-title" class="auth-title">Criar Conta</h1>
+                        <p class="auth-subtitle">Boas histórias começam aqui.</p>
+                    </header>
+
+                    <form id="register-form" class="auth-form" novalidate>
+                        <div class="form-group">
+                            <label for="register-name" class="form-label">Nome <span class="required" aria-hidden="true">*</span></label>
+                            <input type="text" id="register-name" name="name" class="form-input" required maxlength="100" autocomplete="name" aria-describedby="register-name-error">
+                            <span id="register-name-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-email" class="form-label">E-mail <span class="required" aria-hidden="true">*</span></label>
+                            <input type="email" id="register-email" name="email" class="form-input" required autocomplete="email" aria-describedby="register-email-error">
+                            <span id="register-email-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password" class="form-label">Senha <span class="required" aria-hidden="true">*</span></label>
+                            <div class="password-wrapper">
+                                <input type="password" id="register-password" name="password" class="form-input" required minlength="8" autocomplete="new-password" aria-describedby="register-password-error register-password-hint">
+                                <button type="button" class="password-toggle" aria-label="Mostrar/ocultar senha" aria-pressed="false">
+                                    <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 11.5c.29.53.6 1.04 1 1.5C3.35 15.82 5.66 18 9 18c2.3 0 4.45-.9 5.98-2.25l1.52 1.52C15.27 18.3 13.87 19 12 19c-4.97 0-9-4.03-9-9s4.03-9 9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7zm0-11c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                                </button>
+                            </div>
+                            <span id="register-password-hint" class="form-hint">Mínimo 8 caracteres</span>
+                            <span id="register-password-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirm" class="form-label">Confirmar Senha <span class="required" aria-hidden="true">*</span></label>
+                            <input type="password" id="register-confirm" name="confirmPassword" class="form-input" required autocomplete="new-password" aria-describedby="register-confirm-error">
+                            <span id="register-confirm-error" class="form-error" aria-live="polite"></span>
+                        </div>
+
+                        <div class="form-group form-checkbox">
+                            <input type="checkbox" id="register-terms" name="terms" class="form-checkbox-input" required>
+                            <label for="register-terms" class="form-checkbox-label">Aceito os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a></label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Criar Conta</button>
+                    </form>
+
+                    <p class="auth-footer">Já tem conta? <a href="#login" data-screen="login">Entrar</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela 7: Perfil do Usuário -->
+        <section id="screen-perfil" class="screen" aria-labelledby="perfil-title" hidden>
+            <div class="container">
+                <header class="screen-header">
+                    <h1 id="perfil-title" class="screen-title">Meu Perfil</h1>
+                    <p class="screen-subtitle">Gerencie sua conta e preferências</p>
+                </header>
+
+                <div class="profile-layout">
+                    <!-- Sidebar do perfil -->
+                    <aside class="profile-sidebar">
+                        <div class="profile-card">
+                            <div class="profile-avatar" id="profile-avatar" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                            <h2 class="profile-name" id="profile-name">Usuário</h2>
+                            <p class="profile-email" id="profile-email">email@exemplo.com</p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-value" id="stat-books">0</span>
+                                    <span class="stat-label">Livros</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="stat-read">0</span>
+                                    <span class="stat-label">Lidos</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="stat-reading">0</span>
+                                    <span class="stat-label">Lendo</span>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="profile-nav" aria-label="Navegação do perfil">
+                            <a href="#minha-estante" class="profile-nav-item" data-screen="minha-estante">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12h-2v-2h2v2zm0-4h-2V8h2v2zm0-4h-2V4h2v2z"/></svg>
+                                <span>Minha Estante</span>
+                            </a>
+                            <a href="#cadastrar" class="profile-nav-item" data-screen="cadastrar">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <span>Cadastrar Livro</span>
+                            </a>
+                            <button class="profile-nav-item btn-logout" id="btn-logout">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                                <span>Sair</span>
+                            </button>
+                        </nav>
+                    </aside>
+
+                    <!-- Conteúdo do perfil -->
+                    <div class="profile-content">
+                        <section class="profile-section" aria-labelledby="profile-info-title">
+                            <h2 id="profile-info-title" class="profile-section-title">Informações da Conta</h2>
+                            <form id="profile-form" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profile-name-input" class="form-label">Nome</label>
+                                        <input type="text" id="profile-name-input" name="name" class="form-input" maxlength="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-email-input" class="form-label">E-mail</label>
+                                        <input type="email" id="profile-email-input" name="email" class="form-input">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </form>
+                        </section>
+
+                        <section class="profile-section" aria-labelledby="profile-password-title">
+                            <h2 id="profile-password-title" class="profile-section-title">Alterar Senha</h2>
+                            <form id="password-form" class="profile-form">
+                                <div class="form-group">
+                                    <label for="current-password" class="form-label">Senha Atual</label>
+                                    <input type="password" id="current-password" name="currentPassword" class="form-input" autocomplete="current-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password" class="form-label">Nova Senha</label>
+                                    <input type="password" id="new-password" name="newPassword" class="form-input" minlength="8" autocomplete="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-new-password" class="form-label">Confirmar Nova Senha</label>
+                                    <input type="password" id="confirm-new-password" name="confirmNewPassword" class="form-input" autocomplete="new-password">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Atualizar Senha</button>
+                            </form>
+                        </section>
+
+                        <section class="profile-section danger-zone" aria-labelledby="danger-title">
+                            <h2 id="danger-title" class="profile-section-title">Zona de Perigo</h2>
+                            <p class="danger-text">Esta ação é irreversível. Todos os seus dados serão permanentemente excluídos.</p>
+                            <button type="button" class="btn btn-danger" id="btn-delete-account">Excluir Conta</button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo" aria-label="Entrelinhas - Página inicial">
+                        <svg class="logo-icon" viewBox="0 0 32 32" aria-hidden="true">
+                            <path fill="currentColor" d="M4 4h24v24H4z"/>
+                        </svg>
+                        <span class="logo-text">Entrelinhas</span>
+                    </a>
+                    <p class="footer-tagline">Onde histórias se encontram</p>
+                </div>
+                <nav class="footer-nav" aria-label="Links do rodapé">
+                    <div class="footer-links">
+                        <h4>Plataforma</h4>
+                        <ul>
+                            <li><a href="#explorar">Explorar Livros</a></li>
+                            <li><a href="#minha-estante">Minha Estante</a></li>
+                            <li><a href="#cadastrar">Cadastrar Livro</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Comunidade</h4>
+                        <ul>
+                            <li><a href="#login">Entrar</a></li>
+                            <li><a href="#cadastro">Criar Conta</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="#">Termos de Uso</a></li>
+                            <li><a href="#">Política de Privacidade</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Entrelinhas. Todos os direitos reservados.</p>
+                <p class="footer-credits">Desenvolvido para o curso Transforme-se | PROA — Desenvolvimento Front-End Online</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de confirmação -->
+    <div class="modal-overlay" id="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal" role="document">
+            <header class="modal-header">
+                <h2 id="modal-title" class="modal-title"></h2>
+                <button class="modal-close" aria-label="Fechar modal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p id="modal-message"></p>
+            </div>
+            <footer class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-danger modal-confirm">Confirmar</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-label="Notificações"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
